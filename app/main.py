@@ -1,13 +1,10 @@
 from fastapi import FastAPI
+from app.api.routes import router as api_router
 
 app = FastAPI(
     title="AegisRAG",
     version="1.0.0"
 )
 
-@app.get("/")
-def root():
-    return {
-        "project": "AegisRAG",
-        "status": "running"
-    }
+app.include_router(api_router)
+

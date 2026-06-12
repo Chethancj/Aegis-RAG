@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+venv/
+venv311/
+
+# Mac
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Uploads
+uploads/
+
+# Environment variables
+.env
+
+# Qdrant data
+qdrant_storage/
+
+# Logs
+*.log

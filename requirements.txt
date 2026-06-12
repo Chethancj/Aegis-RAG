@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+openai
+qdrant-client
+sentence-transformers
+pypdf
+python-dotenv
+pydantic
+python-multipart
+presidio-analyzer
+presidio-anonymizer
+deepeval
+pytest
