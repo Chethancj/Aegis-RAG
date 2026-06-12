@@ -1,2 +1,16 @@
-# Aegis-RAG
-Local Retrieval Augmented Generation system using FastAPI, Qdrant, SentenceTransformers and Ollama.
+# AegisRAG
+
+A local Retrieval Augmented Generation (RAG) system built with:
+
+- FastAPI
+- SentenceTransformers
+- Qdrant
+- Ollama
+- Llama 3.2
+
+Features:
+- PDF Upload
+- Text Chunking
+- Embedding Generation
+- Semantic Search
+- Retrieval-Augmented Answering
