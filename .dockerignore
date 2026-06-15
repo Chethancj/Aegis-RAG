@@ -1,0 +1,10 @@
+venv311/
+venv/
+__pycache__/
+.pytest_cache/
+.git/
+.vscode/
+uploads/
+qdrant_storage/
+*.pyc
+.env

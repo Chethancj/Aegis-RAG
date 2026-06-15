@@ -1,3 +1,5 @@
+from multiprocessing import context
+
 from app.ingestion.ingest import ingest_pdf
 import os
 from fastapi import APIRouter, UploadFile, File
@@ -33,26 +35,47 @@ from pydantic import BaseModel
 
 class AskRequest(BaseModel):
     question: str
-
+    source: str | None = None
 
 @router.post("/ask")
 async def ask(req: AskRequest):
 
     query_embedding = generate_embedding(req.question)
-
-    results = search(query_embedding)
+    results = search(query_embedding, source=req.source)
 
     context = "\n\n".join(
         result.payload["text"]
         for result in results
     )
-
+    print("\n" + "="*50)
+    print("QUESTION:", req.question)
+    print("\nCONTEXT SENT TO OLLAMA:\n")
+    print(context[:2000])
+    print("="*50)
+    
     answer = generate_answer(
         req.question,
         context
     )
 
+    sources = list(
+    set(
+        result.payload.get("source", "unknown")
+        for result in results
+    )
+    )
+
     return {
-        "question": req.question,
-        "answer": answer
+    "question": req.question,
+    "answer": answer,
+    "sources": sources
+    }
+
+@router.get("/documents")
+async def get_all_documents():
+
+    from app.vectorstore.qdrant_store import get_documents
+
+    return {
+        "documents": get_documents()
     }

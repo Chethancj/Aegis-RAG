@@ -1,3 +1,5 @@
+import os
+
 from app.ingestion.pdf_loader import load_pdf
 from app.ingestion.chunker import chunk_text
 
@@ -25,7 +27,12 @@ def ingest_pdf(file_path: str):
 
     create_collection()
 
-    insert_chunks(chunks, embeddings)
+    filename = os.path.basename(file_path)
+    insert_chunks(
+        chunks,
+        embeddings,
+        filename
+    )
 
     print(f"Inserted {len(chunks)} chunks")
 

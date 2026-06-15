@@ -15,7 +15,7 @@ Answer:
 """
 
     response = ollama.chat(
-        model="llama3.2",
+        model="qwen2.5:3b",
         messages=[
             {
                 "role": "user",
