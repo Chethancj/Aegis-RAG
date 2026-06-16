@@ -1,7 +1,8 @@
 import os
 
 from app.ingestion.pdf_loader import load_pdf
-from app.ingestion.chunker import chunk_text
+from app.ingestion.chunker import chunk_pages
+
 
 from app.llm.embeddings import generate_embedding
 
@@ -14,14 +15,20 @@ from app.vectorstore.qdrant_store import (
 def ingest_pdf(file_path: str):
     print(f"Processing: {file_path}")
 
-    text = load_pdf(file_path)
-    print(f"Characters: {len(text)}")
+    pages = load_pdf(file_path)
+    chunks = chunk_pages(pages)
 
-    chunks = chunk_text(text)
+    total_chars = sum(
+        len(page["text"])
+        for page in pages
+    )
+
+    print(f"Characters: {total_chars}")
+
     print(f"Chunks: {len(chunks)}")
 
     embeddings = [
-        generate_embedding(chunk)
+        generate_embedding(chunk["text"])
         for chunk in chunks
     ]
 

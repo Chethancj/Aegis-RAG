@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+streamlit
+requests
+ollama
+
+qdrant-client
+pypdf
+
+python-dotenv
+pydantic
+python-multipart
+pytest
+
+torch==2.3.1

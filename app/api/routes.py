@@ -58,13 +58,14 @@ async def ask(req: AskRequest):
         context
     )
 
-    sources = list(
-    set(
-        result.payload.get("source", "unknown")
-        for result in results
-    )
-    )
-
+    sources = []
+    for result in results:
+        sources.append({
+            "file": result.payload.get("source", "unknown"),
+            "page": result.payload.get("page", "unknown"),
+            "chunk_id": result.payload.get("chunk_id", "unknown"),
+        })
+    
     return {
     "question": req.question,
     "answer": answer,
@@ -78,4 +79,21 @@ async def get_all_documents():
 
     return {
         "documents": get_documents()
+    }
+@router.get("/metrics")
+async def metrics():
+
+    from app.vectorstore.qdrant_store import (
+        get_documents,
+        client,
+        COLLECTION_NAME
+    )
+
+    info = client.get_collection(
+        COLLECTION_NAME
+    )
+
+    return {
+        "documents": len(get_documents()),
+        "chunks": info.points_count
     }

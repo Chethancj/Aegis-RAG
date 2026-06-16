@@ -43,8 +43,10 @@ def insert_chunks(
                 id=str(uuid.uuid4()),
                 vector=embedding,
                 payload={
-                    "text": chunk,
-                    "source": source
+                    "text": chunk["text"],
+                    "source": source,
+                    "page": chunk["page"],
+                    "chunk_id": idx
                 }
             )
         )

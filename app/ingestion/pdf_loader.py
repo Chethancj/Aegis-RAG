@@ -1,14 +1,28 @@
 from pypdf import PdfReader
 
-def load_pdf(file_path: str) -> str:
+
+def load_pdf(file_path: str):
+
     reader = PdfReader(file_path)
 
-    text = ""
+    pages = []
 
-    for page in reader.pages:
-        text += page.extract_text() + "\n"
+    for idx, page in enumerate(reader.pages):
 
-    return text
+        text = page.extract_text()
+
+        pages.append(
+            {
+                "page": idx + 1,
+                "text": text
+            }
+        )
+
+    return pages
+
+
 if __name__ == "__main__":
-    text = load_pdf("docs/sample.pdf")
-    print(text)
+
+    pages = load_pdf("docs/sample.pdf")
+
+    print(pages[0])
