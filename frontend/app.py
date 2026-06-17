@@ -216,7 +216,10 @@ with st.sidebar:
             else:
 
                 st.error(
-                    "Upload failed."
+                    f"upload failed: {response.text}"
+                )
+                st.write(
+                    "status code:", response.status_code
                 )
 
 # =========================
